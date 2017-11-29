@@ -23,7 +23,7 @@ import (
 	"os"
 
 	"golang.org/x/net/context"
-	"googlemaps.github.io/maps"
+	"google-maps-services-go"
 )
 
 var (
