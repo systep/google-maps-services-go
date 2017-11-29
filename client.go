@@ -25,7 +25,7 @@ import (
 	"net/url"
 	"time"
 
-	"google-maps-services-go/internal"
+	inter "google-maps-services-go/inter"
 
 	"golang.org/x/net/context"
 	"golang.org/x/net/context/ctxhttp"
@@ -262,7 +262,7 @@ func (c *Client) generateAuthQuery(path string, q url.Values, acceptClientID boo
 		return q.Encode(), nil
 	}
 	if acceptClientID {
-		return internal.SignURL(path, c.clientID, c.signature, q)
+		return inter.SignURL(path, c.clientID, c.signature, q)
 	}
 	return "", errors.New("maps: API Key missing")
 }

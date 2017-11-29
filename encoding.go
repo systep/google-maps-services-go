@@ -21,7 +21,7 @@ import (
 	"encoding/json"
 	"net/url"
 
-	"google-maps-services-go/internal"
+	inter "google-maps-services-go/inter"
 )
 
 // safeLeg is a raw version of Leg that does not have custom encoding or
@@ -31,10 +31,10 @@ type safeLeg Leg
 // encodedLeg is the actual encoded version of Leg as per the Maps APIs.
 type encodedLeg struct {
 	safeLeg
-	EncDuration          *internal.Duration `json:"duration"`
-	EncDurationInTraffic *internal.Duration `json:"duration_in_traffic"`
-	EncArrivalTime       *internal.DateTime `json:"arrival_time"`
-	EncDepartureTime     *internal.DateTime `json:"departure_time"`
+	EncDuration          *inter.Duration `json:"duration"`
+	EncDurationInTraffic *inter.Duration `json:"duration_in_traffic"`
+	EncArrivalTime       *inter.DateTime `json:"arrival_time"`
+	EncDepartureTime     *inter.DateTime `json:"departure_time"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler for Leg. This decodes the API
@@ -61,10 +61,10 @@ func (leg *Leg) MarshalJSON() ([]byte, error) {
 	x := encodedLeg{}
 	x.safeLeg = safeLeg(*leg)
 
-	x.EncDuration = internal.NewDuration(leg.Duration)
-	x.EncDurationInTraffic = internal.NewDuration(leg.DurationInTraffic)
-	x.EncArrivalTime = internal.NewDateTime(leg.ArrivalTime)
-	x.EncDepartureTime = internal.NewDateTime(leg.DepartureTime)
+	x.EncDuration = inter.NewDuration(leg.Duration)
+	x.EncDurationInTraffic = inter.NewDuration(leg.DurationInTraffic)
+	x.EncArrivalTime = inter.NewDateTime(leg.ArrivalTime)
+	x.EncDepartureTime = inter.NewDateTime(leg.DepartureTime)
 
 	return json.Marshal(x)
 }
@@ -76,7 +76,7 @@ type safeStep Step
 // encodedStep is the actual encoded version of Step as per the Maps APIs.
 type encodedStep struct {
 	safeStep
-	EncDuration *internal.Duration `json:"duration"`
+	EncDuration *inter.Duration `json:"duration"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler for Step. This decodes the API
@@ -100,7 +100,7 @@ func (step *Step) MarshalJSON() ([]byte, error) {
 	x := encodedStep{}
 	x.safeStep = safeStep(*step)
 
-	x.EncDuration = internal.NewDuration(step.Duration)
+	x.EncDuration = inter.NewDuration(step.Duration)
 
 	return json.Marshal(x)
 }
@@ -113,8 +113,8 @@ type safeTransitDetails TransitDetails
 // the Maps APIs
 type encodedTransitDetails struct {
 	safeTransitDetails
-	EncArrivalTime   *internal.DateTime `json:"arrival_time"`
-	EncDepartureTime *internal.DateTime `json:"departure_time"`
+	EncArrivalTime   *inter.DateTime `json:"arrival_time"`
+	EncDepartureTime *inter.DateTime `json:"departure_time"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler for TransitDetails. This decodes
@@ -139,8 +139,8 @@ func (transitDetails *TransitDetails) MarshalJSON() ([]byte, error) {
 	x := encodedTransitDetails{}
 	x.safeTransitDetails = safeTransitDetails(*transitDetails)
 
-	x.EncArrivalTime = internal.NewDateTime(transitDetails.ArrivalTime)
-	x.EncDepartureTime = internal.NewDateTime(transitDetails.DepartureTime)
+	x.EncArrivalTime = inter.NewDateTime(transitDetails.ArrivalTime)
+	x.EncDepartureTime = inter.NewDateTime(transitDetails.DepartureTime)
 
 	return json.Marshal(x)
 }
@@ -279,8 +279,8 @@ type safeDistanceMatrixElement DistanceMatrixElement
 // DistanceMatrixElement as per the Maps APIs.
 type encodedDistanceMatrixElement struct {
 	safeDistanceMatrixElement
-	EncDuration          *internal.Duration `json:"duration"`
-	EncDurationInTraffic *internal.Duration `json:"duration_in_traffic"`
+	EncDuration          *inter.Duration `json:"duration"`
+	EncDurationInTraffic *inter.Duration `json:"duration_in_traffic"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler for DistanceMatrixElement. This
@@ -305,7 +305,7 @@ func (dme *DistanceMatrixElement) MarshalJSON() ([]byte, error) {
 	x := encodedDistanceMatrixElement{}
 	x.safeDistanceMatrixElement = safeDistanceMatrixElement(*dme)
 
-	x.EncDuration = internal.NewDuration(dme.Duration)
+	x.EncDuration = inter.NewDuration(dme.Duration)
 
 	return json.Marshal(x)
 }
@@ -318,7 +318,7 @@ type safeSnappedPoint SnappedPoint
 // Roads API.
 type encodedSnappedPoint struct {
 	safeSnappedPoint
-	EncLocation internal.Location `json:"location"`
+	EncLocation inter.Location `json:"location"`
 }
 
 // UnmarshalJSON implements json.Unmarshaler for SnappedPoint. This decode the
